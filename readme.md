@@ -12,10 +12,14 @@ There are two section:
 NOTE: if you need the data, please download from https://tianchi.aliyun.com/competition/entrance/231677/information?lang=en-us
 
 ## Image Features Extraction
+Raw image is original image with three channels. Picture image feature is a vector to represent specific image. Traditionally, picture image feature could be the last fully connected layer of classic classification model.
+
 ![r](assets/model1.png)
 
 ## Mapping
+In this mapping model, the input is word embedding, which is vector to represent this category. Category image feature is also a vector to represent this category. In this situation, picture image feature is equal to category image feature. Because we assume that image features belong to same category are similar. During training phase, we use all picture image feature of train data set and correspond word embedding to train mapping model. After train this model, sending word embedding of test category, mapping model will predict category image feature for every test image category, which is a vector collection and we named it as TCIF(test category image feature). Because number of category for test data is 65, TCIF contains 65 vectors.
 ![r](assets/model2.png)
 
 ## KNN Model
+In this model, the input is image feature and output is category label. We will use TCIF and correspond label to train KNN model. Then offering us an raw image, extract image feature by model 1 and sending this image feature to KNN model. KNN model will predict label for this image.
 ![r](assets/model3.png)
